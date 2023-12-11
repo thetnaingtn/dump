@@ -77,14 +77,13 @@ jobs:
     name: Publish base package to NPM
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
       - name: Set version
         shell: bash
         run: |
           sed -E -i "s/\"(dump-.+)\": \".+\"/\"\1\": \"${{ env.RELEASE_VERSION }}\"/g" npm/dump/package.json
           sed -E -i "s/\"(version)\": \".+\"/\"\1\": \"${{ env.RELEASE_VERSION }}\"/g" npm/dump/package.json 
-          
-      - name: Checkout
-        uses: actions/checkout@v4
       - name: Install Node
         uses: actions/setup-node@v4
         with:

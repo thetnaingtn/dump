@@ -1,3 +1,4 @@
+name: Release
 on:
   push:
     tags:
@@ -57,14 +58,14 @@ jobs:
           export node_os
           node_arch=$(echo "${{ matrix.os }}" | cut -d "_" -f3)
           export node_arch
-          if node_os == "windows"; then
+          if [ node_os = "windows" ]; then
             export node_pkg="${bin}-windows-${node_arch}"
           else
             export node_pkg="${bin}-${node_os}-${node_arch}"
           fi
           mkdir -p "${node_pkg}/bin"
           envsubst < package.json.tmpl > "${node_pkg}/package.json"
-          if [ "${{ matrix.os }}" = "windows-2022" ]; then
+          if [ "${{ node_os }}" = "windows" ]; then
             bin="${bin}.exe"
           fi
           cp "../dist/${{ matrix.os }}/${bin}" "${node_pkg}/bin"

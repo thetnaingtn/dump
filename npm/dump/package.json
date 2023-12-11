@@ -1,6 +1,6 @@
 {
     "name": "dump",
-    "version": "0.0.2",
+    "version": "0.0.6",
     "bin": "lib/index.js",
     "scripts": {
         "typecheck": "tsc --noEmit",
@@ -17,11 +17,11 @@
         "typescript": "^4.9.4"
     },
     "optionalDependencies": {
-        "dump-darwin-arm64": "0.0.2",
-        "dump-darwin-amd64": "0.0.2",
-        "dump-linux-arm64": "0.0.2",
-        "dump-linux-amd64": "0.0.2",
-        "dump-windows-arm64": "0.0.2",
-        "dump-windows-amd64": "0.0.2"
+        "dump-darwin-arm64": "0.0.6",
+        "dump-darwin-amd64": "0.0.6",
+        "dump-linux-arm64": "0.0.6",
+        "dump-linux-amd64": "0.0.6",
+        "dump-windows-arm64": "0.0.6",
+        "dump-windows-amd64": "0.0.6"
     }
 }

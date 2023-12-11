@@ -1,0 +1,90 @@
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+jobs:
+  goreleaser:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Fetch all tags
+        run: git fetch --force --tags
+
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.21.x
+      
+      - name: Run GoReleaser
+        uses: goreleaser/goreleaser-action@v2
+        with:
+          distribution: goreleaser
+          version: latest
+          args: release --clean
+        env:
+          GITHUB_TOKEN: ${{ secrets.PUBLISHER_TOKEN }}
+  
+  publish-binaries:
+    needs: goreleaser
+    strategy:
+      matrix:
+        os: ["dump_darwin_amd64_v1","dump_darwin_arm64","dump_linux_amd64_v1","dump_linux_arm64","dump_windows_amd64_v1", "dump_windows_arm64"]
+    runs-on: ubuntu-latest
+    name: Publish binaries for different architectures and platforms to NPM
+    steps:
+      - name: Install Node
+        uses: actions/setup-node@v4
+        with: 
+          node-version: "16"
+          registry-url: "https://registry.npmjs.org"
+      - name: Publish to NPM
+        shell: bash
+        run: |
+          cd npm
+          bin="dump"
+          node_os=$(echo "${{ matrix.os }}" | cut -d "_" -f2)
+          export node_os
+          node_arch=$(echo "${{ matrix.os }}" | cut -d "_" -f3)
+          export node_arch
+          if node_os == "windows"; then
+            export node_pkg="${bin}-windows-${node_arch}"
+          else
+            export node_pkg="${bin}-${node_os}-${node_arch}"
+          fi
+          mkdir -p "${node_pkg}/bin"
+          envsubst < package.json.tmpl > "${node_pkg}/package.json"
+          if [ "${{ matrix.os }}" = "windows-2022" ]; then
+            bin="${bin}.exe"
+          fi
+          cp "../dist/${{ matrix.os }}/${bin}" "${node_pkg}/bin"
+          cd "${node_pkg}"
+          npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_API_KEY}}
+
+  publish-npm:
+    needs: publish-binaries
+    name: Publish base package to NPM
+    runs-on: ubuntu-latest
+    steps:  
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "16"
+          registry-url: "https://registry.npmjs.org"
+      - name: Publish to NPM
+        shell: bash
+        run: |
+          cd npm/dump
+          yarn install
+          yarn build
+          npm publish --access public
+        env:
+          NPM_API_KEY: ${{ secrets.NPM_API_KEY }}

@@ -45,10 +45,10 @@ jobs:
         shell: bash
         run: |
           cd npm
-          bin="dump"
           version="${{ env.RELEASE_VERSION }}"
           export version
           for target in "dump_darwin_amd64_v1" "dump_darwin_arm64" "dump_linux_amd64_v1" "dump_linux_arm64" "dump_windows_amd64_v1" "dump_windows_arm64"; do
+            bin="dump"
             node_os=$(echo "${target}" | cut -d "_" -f2)
             export node_os
             node_arch=$(echo "${target}" | cut -d "_" -f3)

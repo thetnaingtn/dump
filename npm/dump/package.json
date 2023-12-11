@@ -18,10 +18,10 @@
     },
     "optionalDependencies": {
         "dump-darwin-arm64": "0.0.1",
-        "dump-darwin-x64": "0.0.1",
+        "dump-darwin-amd64": "0.0.1",
         "dump-linux-arm64": "0.0.1",
-        "dump-linux-x64": "0.0.1",
+        "dump-linux-amd64": "0.0.1",
         "dump-windows-arm64": "0.0.1",
-        "dump-windows-x64": "0.0.1"
+        "dump-windows-amd64": "0.0.1"
     }
 }

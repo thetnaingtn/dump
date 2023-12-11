@@ -14,6 +14,10 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Set the release version
+        shell: bash
+        run: echo "RELEASE_VERSION=${GITHUB_REF:11}" >> $GITHUB_ENV
+
       - name: Fetch all tags
         run: git fetch --force --tags
 
@@ -42,7 +46,7 @@ jobs:
         run: |
           cd npm
           bin="dump"
-          version="${{ env.GITHUB_REF_NAME }}"
+          version="${{ env.RELEASE_VERSION }}"
           export version
           for target in "dump_darwin_amd64_v1" "dump_darwin_arm64" "dump_linux_amd64_v1" "dump_linux_arm64" "dump_windows_amd64_v1" "dump_windows_arm64"; do
             node_os=$(echo "${target}" | cut -d "_" -f2)

@@ -40,12 +40,6 @@ jobs:
         with: 
           node-version: "16"
           registry-url: "https://registry.npmjs.org"
-      
-      - name: Set version
-        shell: bash
-        run: |
-          sed -E -i "s/\"(dump-.+)\": \".+\"/\"\1\": \"${{ env.RELEASE_VERSION }}\"/g" npm/dump/package.json
-          sed -E -i "s/\"(version)\": \".+\"/\"\1\": \"${{ env.RELEASE_VERSION }}\"/g" npm/dump/package.json
 
       - name: Publish to NPM
         shell: bash
@@ -82,7 +76,13 @@ jobs:
     needs: goreleaser
     name: Publish base package to NPM
     runs-on: ubuntu-latest
-    steps:  
+    steps:
+      - name: Set version
+        shell: bash
+        run: |
+          sed -E -i "s/\"(dump-.+)\": \".+\"/\"\1\": \"${{ env.RELEASE_VERSION }}\"/g" npm/dump/package.json
+          sed -E -i "s/\"(version)\": \".+\"/\"\1\": \"${{ env.RELEASE_VERSION }}\"/g" npm/dump/package.json 
+          
       - name: Checkout
         uses: actions/checkout@v4
       - name: Install Node

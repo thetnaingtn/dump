@@ -54,7 +54,7 @@ jobs:
             fi
             mkdir -p "${node_pkg}/bin"
             envsubst < package.json.tmpl > "${node_pkg}/package.json"
-            if [ "${node_os}" == "windows" ]; then
+            if [ "${node_os}" = "windows" ]; then
               bin="${bin}.exe"
             fi
             install -D ../dist/${target}/${bin} ${node_pkg}/bin/${bin}

@@ -42,7 +42,7 @@ jobs:
         run: |
           cd npm
           bin="dump"
-          version=echo "${{env.GITHUB_REF_NAME}}"
+          version="${{ env.GITHUB_REF_NAME }}"
           export version
           for target in "dump_darwin_amd64_v1" "dump_darwin_arm64" "dump_linux_amd64_v1" "dump_linux_arm64" "dump_windows_amd64_v1" "dump_windows_arm64"; do
             node_os=$(echo "${target}" | cut -d "_" -f2)

@@ -58,7 +58,7 @@ jobs:
             else
               export node_pkg="${bin}-${node_os}-${node_arch}"
             fi
-            echo ${node_pkg}
+            echo "pkg:${node_pkg}"
             mkdir -p "${node_pkg}/bin"
             envsubst < package.json.tmpl > "${node_pkg}/package.json"
             if [ "${node_os}" = "windows" ]; then

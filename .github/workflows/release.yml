@@ -44,8 +44,8 @@ jobs:
       - name: Set version
         shell: bash
         run: |
-          sed -E -i '' "s/\"(dump-.+)\": \".+\"/\"\1\": \"${{ env.RELEASE_VERSION }}\"/g" npm/dump/package.json
-          sed -E -i '' "s/\"(version)\": \".+\"/\"\1\": \"${{ env.RELEASE_VERSION }}\"/g" npm/dump/package.json
+          sed -E -i "s/\"(dump-.+)\": \".+\"/\"\1\": \"${{ env.RELEASE_VERSION }}\"/g" npm/dump/package.json
+          sed -E -i "s/\"(version)\": \".+\"/\"\1\": \"${{ env.RELEASE_VERSION }}\"/g" npm/dump/package.json
 
       - name: Publish to NPM
         shell: bash

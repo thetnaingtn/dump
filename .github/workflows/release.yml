@@ -67,6 +67,7 @@ jobs:
             install -D ../dist/${target}/${bin} ${node_pkg}/bin/${bin}
             cd "${node_pkg}"
             npm publish --access public
+            cd ..
           done
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_API_KEY}}

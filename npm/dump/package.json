@@ -1,6 +1,6 @@
 {
     "name": "dududumpdump",
-    "version": "0.0.12",
+    "version": "0.0.20",
     "bin": "lib/index.js",
     "scripts": {
         "typecheck": "tsc --noEmit",
@@ -17,11 +17,11 @@
         "typescript": "^4.9.4"
     },
     "optionalDependencies": {
-        "dump-darwin-arm64": "0.0.12",
-        "dump-darwin-amd64": "0.0.12",
-        "dump-linux-arm64": "0.0.12",
-        "dump-linux-amd64": "0.0.12",
-        "dump-windows-arm64": "0.0.12",
-        "dump-windows-amd64": "0.0.12"
+        "dump-darwin-arm64": "0.0.20",
+        "dump-darwin-amd64": "0.0.20",
+        "dump-linux-arm64": "0.0.20",
+        "dump-linux-amd64": "0.0.20",
+        "dump-windows-arm64": "0.0.20",
+        "dump-windows-amd64": "0.0.20"
     }
 }

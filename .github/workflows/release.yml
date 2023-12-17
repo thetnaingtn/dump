@@ -51,6 +51,11 @@ jobs:
     runs-on: ubuntu-latest
     name: Publish binaries for different architectures and platforms to NPM
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          
       - name: Install Node
         uses: actions/setup-node@v4
         with: 

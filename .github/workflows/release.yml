@@ -66,7 +66,6 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: binaries
-          path: dist
 
       - name: Set the release version
         shell: bash
@@ -93,7 +92,7 @@ jobs:
           if [ "${node_os}" = "windows" ]; then
             bin="${bin}.exe"
           fi
-          install -D ../dist/dump/${{ matrix.os }}/${bin} ${node_pkg}/bin/${bin}
+          install -D ../dump/${{ matrix.os }}/${bin} ${node_pkg}/bin/${bin}
           cd "${node_pkg}"
           npm publish --access public
         env:
